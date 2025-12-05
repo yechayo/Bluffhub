@@ -1,0 +1,154 @@
+.game-card {
+  width: 100px;
+  height: 140px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.1),
+    0 2px 4px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  user-select: none;
+  transition: all 0.3s ease;
+  font-family: 'Arial', sans-serif;
+
+  // 卡牌背面装饰
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0,0,0,0.05) 0%, transparent 50%);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  // 悬停效果
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow:
+      0 8px 16px rgba(0,0,0,0.15),
+      0 4px 8px rgba(0,0,0,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+
+  &.red {
+    color: #dc3545;
+    border-color: #dc3545;
+
+    .card-center-suit {
+      text-shadow: 0 0 8px rgba(220, 53, 69, 0.3);
+    }
+  }
+
+  &.black {
+    color: #212529;
+    border-color: #6c757d;
+
+    .card-center-suit {
+      text-shadow: 0 0 8px rgba(33, 37, 41, 0.2);
+    }
+  }
+
+  .card-top-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .card-center-suit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    z-index: 1;
+    opacity: 0.8;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  .card-bottom-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    transform: rotate(180deg);
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  // 特殊牌型样式
+  &[data-rank="JOKER"] {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+    border-color: #ff6b6b;
+    color: white;
+
+    &::before {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0,0,0,0.1) 0%, transparent 50%);
+    }
+
+    .card-center-suit {
+      opacity: 1;
+      text-shadow: 0 0 12px rgba(255,255,255,0.8);
+    }
+  }
+
+  // 数字牌特殊样式
+  &[data-rank="A"],
+  &[data-rank="K"],
+  &[data-rank="Q"] {
+    .card-center-suit {
+      opacity: 0.6;
+    }
+  }
+}
+
+@media (max-width: 1100px) and (orientation: landscape) {
+  .game-card {
+    width: 7vw;
+    height: 20vh;
+    border-radius: 1.5vh;
+    padding: 1vh;
+    border-width: 0.3vh;
+
+    &::before {
+      border-radius: 1.2vh;
+    }
+
+    &:hover {
+      transform: translateY(-1vh) scale(1.05);
+    }
+
+    .card-top-left {
+      font-size: 2.5vh;
+    }
+
+    .card-center-suit {
+      font-size: 8vh;
+    }
+
+    .card-bottom-right {
+      font-size: 2.5vh;
+    }
+  }
+}

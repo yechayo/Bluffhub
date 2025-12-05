@@ -1,0 +1,110 @@
+.revolver-cylinder {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  
+  .cylinder-body {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #555;
+    border: 2px solid #333;
+    position: relative;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+    animation: spin 0.5s ease-out; // Optional spin on update
+  }
+
+  .center-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: #222;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 2px rgba(255,255,255,0.2);
+  }
+
+  .chamber {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1a1a1a; // Empty chamber color
+    top: 50%;
+    left: 50%;
+    margin-top: -5px;
+    margin-left: -5px;
+    
+    // Position chambers in a circle
+    @radius: 12px;
+    
+    &.chamber-0 { transform: rotate(0deg) translate(@radius) rotate(0deg); }
+    &.chamber-1 { transform: rotate(60deg) translate(@radius) rotate(-60deg); }
+    &.chamber-2 { transform: rotate(120deg) translate(@radius) rotate(-120deg); }
+    &.chamber-3 { transform: rotate(180deg) translate(@radius) rotate(-180deg); }
+    &.chamber-4 { transform: rotate(240deg) translate(@radius) rotate(-240deg); }
+    &.chamber-5 { transform: rotate(300deg) translate(@radius) rotate(-300deg); }
+
+    &.full {
+      background: #d4af37; // Gold bullet casing
+      box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+      
+      .bullet-head {
+        width: 6px;
+        height: 6px;
+        background: #b8860b;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.8;
+      }
+    }
+    
+    &.empty {
+      box-shadow: inset 1px 1px 3px rgba(0,0,0,0.8);
+    }
+  }
+}
+
+@media (max-width: 1100px) and (orientation: landscape) {
+  .revolver-cylinder {
+    width: 6vh;
+    height: 6vh;
+    
+    .cylinder-body {
+      border-width: 0.3vh;
+    }
+
+    .center-pin {
+      width: 1.2vh;
+      height: 1.2vh;
+    }
+
+    .chamber {
+      width: 1.5vh;
+      height: 1.5vh;
+      margin-top: -0.75vh;
+      margin-left: -0.75vh;
+      
+      @radius: 1.8vh;
+      
+      &.chamber-0 { transform: rotate(0deg) translate(@radius) rotate(0deg); }
+      &.chamber-1 { transform: rotate(60deg) translate(@radius) rotate(-60deg); }
+      &.chamber-2 { transform: rotate(120deg) translate(@radius) rotate(-120deg); }
+      &.chamber-3 { transform: rotate(180deg) translate(@radius) rotate(-180deg); }
+      &.chamber-4 { transform: rotate(240deg) translate(@radius) rotate(-240deg); }
+      &.chamber-5 { transform: rotate(300deg) translate(@radius) rotate(-300deg); }
+
+      &.full {
+        .bullet-head {
+          width: 0.9vh;
+          height: 0.9vh;
+        }
+      }
+    }
+  }
+}

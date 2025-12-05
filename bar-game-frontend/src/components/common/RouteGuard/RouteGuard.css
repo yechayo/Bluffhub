@@ -1,0 +1,56 @@
+/* 路由守护组件样式 */
+.route-guard-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.loading-content p {
+  color: #fff;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 加载动画优化 */
+.route-guard-loading .ant-spin-dot {
+  font-size: 24px;
+}
+
+.route-guard-loading .ant-spin-dot-item {
+  background-color: #1890ff;
+  border-radius: 50%;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .loading-content {
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .loading-content p {
+    font-size: 14px;
+  }
+}

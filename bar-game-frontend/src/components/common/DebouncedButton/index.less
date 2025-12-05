@@ -1,0 +1,20 @@
+.debounced-button {
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &.executing {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // 点击后的简单反馈动画
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}

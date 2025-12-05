@@ -1,0 +1,201 @@
+
+// macOS 风格变量
+@mac-radius-lg: 16px;
+@mac-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+@mac-border-color: rgba(255, 255, 255, 0.12);
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    // background: radial-gradient(circle at center, #2c2c2e 0%, #000000 100%); // 移除背景色，以免遮挡背景视频
+
+    .login-iframe-container {
+        position: relative;
+        animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1); // 更平滑的动画曲线
+        will-change: transform, opacity;
+        border-radius: @mac-radius-lg;
+        overflow: hidden;
+        box-shadow: @mac-shadow;
+        // border: 1px solid @mac-border-color;
+        height: 480px;
+
+        @media (max-width: 1100px) {
+            width: 90vw;
+            height: 70vh;
+            // max-width: 768px;
+            // max-height: 480px;
+        }
+
+        iframe {
+            width: 768px;
+            height: 480px;
+            @media (max-width: 1100px) {
+                width: 100%;
+                height: 100%;
+            }
+            border: 0;
+            margin: 0;
+            padding: 0;
+            border-radius: @mac-radius-lg;
+            transition: transform 0.5s ease-in-out, opacity 0.8s ease-in-out;
+            will-change: transform, opacity;
+            background: transparent; // iframe 背景透明
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 24px;
+            height: 24px;
+            @media (max-width: 1100px) {
+                width: 36px;
+                height: 36px;
+                top: 10px;
+                right: 10px;
+            }
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%; // 圆形按钮
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 10;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+
+            &:hover {
+                background-color: rgba(255, 69, 58, 0.8); // 悬停变红
+                color: white;
+                transform: scale(1.1);
+            }
+
+            &.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &.visible {
+                opacity: 1;
+            }
+        }
+
+        &.fade-out iframe {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        &.fade-out .close-button {
+            opacity: 0;
+        }
+    }
+}
+
+
+// 淡进淡出缩放动画
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// 淡出缩放动画
+@keyframes fadeOutScale {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+// 添加淡出类
+.fade-out {
+    animation: fadeOutScale 0.3s ease-in forwards;
+}
+
+// 遮罩层样式
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+
+    .login-hint {
+        color: white;
+        font-size: 24px;
+        font-weight: 500;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        user-select: none;
+        animation: slow-pulse 1.5s ease-in-out infinite;
+    }
+
+    // StartFont 组件的默认闪烁动画
+    .start-font-container {
+        animation: slow-pulse 1.5s ease-in-out infinite;
+    }
+
+    // 向上消失动画类
+    .start-font-container.fade-up {
+        animation: fadeUp 0.5s ease-out forwards;
+    }
+}
+
+.start-font-letter {
+    display: inline-block;
+    animation: startFontLetterFloat 2.4s ease-in-out infinite;
+    will-change: transform;
+}
+
+// 提示文字缓慢闪烁动画
+@keyframes slow-pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+// 向上消失动画
+@keyframes fadeUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes startFontLetterFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) scale(1.02);
+    }
+}

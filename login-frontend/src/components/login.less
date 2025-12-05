@@ -1,0 +1,273 @@
+// macOS 风格变量
+@mac-bg-color: rgba(40, 40, 40, 0.85);
+@mac-accent-color: #ff6200;
+@mac-accent-hover: #8a3500;
+@mac-text-primary: rgba(255, 255, 255, 0.95);
+@mac-text-secondary: rgba(255, 255, 255, 0.6);
+@mac-border-color: rgba(255, 255, 255, 0.12);
+@mac-radius-lg: 16px;
+@mac-radius-md: 10px;
+@mac-radius-sm: 6px;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    color: @mac-text-primary;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.container {
+    // background-color: @mac-bg-color;
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border-radius: @mac-radius-lg;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    // border: 1px solid @mac-border-color;
+
+    a {
+        color: @mac-text-secondary;
+        font-size: 13px;
+        text-decoration: none;
+        margin: 15px 0 10px;
+        transition: color 0.2s;
+
+        &:hover {
+            color: @mac-accent-color;
+        }
+    }
+
+    button {
+        background-color: @mac-accent-color;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: @mac-radius-sm;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            background-color: @mac-accent-hover;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    button.hidden {
+        background-color: transparent;
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    form {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 40px;
+        height: 100%;
+    }
+
+    input {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid @mac-border-color;
+        margin: 8px 0;
+        padding: 12px 15px;
+        font-size: 13px;
+        border-radius: @mac-radius-sm;
+        width: 100%;
+        outline: none;
+        color: @mac-text-primary;
+        transition: all 0.2s ease;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:focus {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: @mac-accent-color;
+            box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+        }
+    }
+}
+
+.container.active .sign-in {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+.container.active .toggle-container {
+    transform: translateX(-100%);
+    border-radius: 0 100px 100px 0; // 调整圆角
+}
+
+.container.active .toggle{
+    transform: translateX(50%);
+}
+
+.container.active .toggle-left{
+    transform: translateX(0);
+}
+
+.container.active .toggle-right{
+    transform: translateX(100%);
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+    transform: translateX(0);
+}
+
+@keyframes move {
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.social-icon {
+    margin: 20px 0;
+
+    a {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: inline-flex;
+        border-radius: 20%;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px;
+        width: 40px;
+        height: 40px;
+        transition: all 0.2s ease;
+        color: @mac-text-primary;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    z-index: 1000;
+    border-radius: 100px 0 0 100px; // 调整圆角
+}
+
+.toggle {
+    background: linear-gradient(to right,#862a08,#862a00), url('../assets/微信图片_20251113161513_75_311.jpg');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-blend-mode: overlay;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+        z-index: 0;
+    }
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+    z-index: 1; // 确保在背景之上
+    
+    p {
+        color: @mac-text-primary;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 20px 0 30px;
+    }
+}
+
+.toggle-left{
+    transform: translateX(-100%);
+}
+
+.toggle-right{
+    right: 0;
+    transform: translateX(0);
+}

@@ -1,0 +1,77 @@
+.turn-around-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a1a1a;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  touch-action: none;
+
+  .phone-icon {
+    width: 60px;
+    height: 100px;
+    border: 4px solid #fff;
+    border-radius: 10px;
+    position: relative;
+    animation: rotate-phone 2s infinite ease-in-out;
+    margin-bottom: 30px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 4px;
+      background-color: #fff;
+      border-radius: 2px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+  }
+
+  .message {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    padding: 0 20px;
+    
+    p {
+      margin: 5px 0;
+      color: #ccc;
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes rotate-phone {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  75% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

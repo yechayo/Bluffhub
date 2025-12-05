@@ -1,0 +1,422 @@
+.game-stage-2d {
+  width: 100vw;
+  height: 100vh;
+  /* Gangster Bar Atmosphere: Dim, warm, smoky */
+  background: radial-gradient(circle at center, #5d4037 0%, #3e2723 40%, #1a120b 80%, #000000 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Add a vignette effect overlay */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(transparent 50%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  // 游戏信息头部区域 - 分散布局优化
+  .game-info-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0; // 不占用布局空间
+    z-index: 15;
+    pointer-events: none; // 允许点击穿透
+
+    // 右上角：轮数与目标
+    .game-round-info {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      pointer-events: auto;
+      
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+      .round-number {
+        font-size: 20px;
+        font-weight: 800;
+        color: #ffd700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .target-card-display {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 5px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .label {
+          font-size: 14px;
+          color: #aaa;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .target-card-visual {
+          width: 60px;
+          height: 84px;
+          background: #e0e0e0;
+          border-radius: 6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 36px;
+          font-weight: bold;
+          color: #333;
+          box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+          border: 3px solid #ffd700;
+          animation: targetPulse 2s infinite;
+          
+          &.card-A { color: #d32f2f; }
+          &.card-K { color: #1976d2; }
+          &.card-Q { color: #7b1fa2; }
+          &.card-J { color: #388e3c; }
+        }
+      }
+    }
+
+    @keyframes targetPulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+      50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+    }
+
+    // 顶部中央：当前回合
+    .current-turn-info {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: auto;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      padding: 6px 20px 6px 6px; // 左侧紧凑，右侧留白
+      border-radius: 30px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+      .turn-label {
+        display: none; // 隐藏文字标签，节省空间
+      }
+
+      .current-player {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        padding: 0;
+        border: none;
+        
+        .player-avatar-small {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 2px solid #ffd700;
+          box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .player-name {
+          font-size: 18px;
+          font-weight: bold;
+          color: #ffffff;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .your-turn-badge {
+          background: linear-gradient(45deg, #ff6b6b, #ffd700);
+          color: #000000;
+          font-size: 12px;
+          font-weight: bold;
+          padding: 3px 8px;
+          border-radius: 12px;
+          animation: pulse 2s infinite;
+          text-shadow: none;
+          white-space: nowrap;
+        }
+
+        .waiting-player {
+          font-size: 16px;
+          color: #cccccc;
+          font-style: italic;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .table-area {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .players-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none; /* Let clicks pass through to table if needed */
+    
+    /* Re-enable pointer events for children */
+    > * {
+      pointer-events: auto;
+    }
+  }
+
+  .hand-cards-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+}
+
+// 飞入目标牌动画样式
+.flying-target-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 60px;
+  height: 84px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  border: 3px solid #ffd700;
+  z-index: 1000; // 确保在最上层
+  pointer-events: none;
+  animation: flyAndScale 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  &.card-A { color: #d32f2f; }
+  &.card-K { color: #1976d2; }
+  &.card-Q { color: #7b1fa2; }
+  &.card-J { color: #388e3c; }
+}
+
+@keyframes flyAndScale {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  20% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    top: 60px; // 目标位置 Y
+    left: calc(100% - 60px); // 目标位置 X
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    opacity: 0; // 最终消失
+  }
+}
+
+// 移动端适配动画
+@media (max-width: 1100px) and (orientation: landscape) {
+  .flying-target-card {
+    animation-name: flyAndScaleMobile;
+  }
+}
+
+@keyframes flyAndScaleMobile {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  20% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    top: 5vh; 
+    left: 90vw; 
+    transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// 脉冲动画
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .game-stage-2d {
+    .game-info-header {
+      width: 95%;
+      padding: 10px 15px;
+      flex-direction: column;
+      gap: 10px;
+
+      .game-round-info {
+        align-items: center;
+
+        .round-number {
+          font-size: 16px;
+        }
+
+        .target-card {
+          font-size: 12px;
+        }
+      }
+
+      .current-turn-info {
+        .turn-label {
+          font-size: 14px;
+        }
+
+        .current-player {
+          padding: 6px 12px;
+
+          .player-name {
+            font-size: 14px;
+          }
+
+          .your-turn-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 移动端横屏适配
+@media (max-width: 1100px) and (orientation: landscape) {
+  .game-stage-2d {
+    .game-info-header {
+      .game-round-info {
+        top: 2vh;
+        right: 2vw;
+        padding: 1vh 2vw;
+        gap: 0.5vh;
+        border-radius: 1.5vh;
+
+        .round-number {
+          font-size: 3vh;
+        }
+
+        .target-card-display {
+          padding: 0.5vh 1vw;
+          border-radius: 1vh;
+          gap: 1vw;
+          
+          .label {
+            font-size: 2vh;
+          }
+
+          .target-card-visual {
+            width: 4vh;
+            height: 5.6vh;
+            font-size: 3vh;
+            border-width: 0.3vh;
+            border-radius: 0.5vh;
+          }
+        }
+      }
+
+      .current-turn-info {
+        top: 2vh;
+        padding: 0.5vh 2vw 0.5vh 0.5vh;
+        border-radius: 4vh;
+        gap: 1vw;
+
+        .current-player {
+          gap: 1vw;
+
+          .player-avatar-small {
+            width: 5vh;
+            height: 5vh;
+            border-width: 0.3vh;
+          }
+
+          .player-name {
+            font-size: 2.5vh;
+          }
+
+          .your-turn-badge {
+            font-size: 1.8vh;
+            padding: 0.4vh 1.5vw;
+            border-radius: 2vh;
+          }
+        }
+      }
+    }
+  }
+}

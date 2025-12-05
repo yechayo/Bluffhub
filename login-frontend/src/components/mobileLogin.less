@@ -1,0 +1,114 @@
+// 移动端样式变量
+@mobile-bg-color: rgba(20, 20, 20, 0.95);
+@mobile-accent-color: #ff6200;
+@mobile-text-primary: #ffffff;
+@mobile-text-secondary: rgba(255, 255, 255, 0.7);
+@mobile-border-color: rgba(255, 255, 255, 0.1);
+@mobile-input-bg: rgba(255, 255, 255, 0.1);
+
+.mobile-login-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+    
+    // 背景模糊效果
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    .mobile-form-card {
+        width: 100%;
+        max-width: 360px;
+        // background: rgba(30, 30, 30, 0.6);
+        border-radius: 20px;
+        padding: 30px 20px;
+        // box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        // border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            color: @mobile-text-primary;
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: @mobile-input-bg;
+            color: @mobile-text-primary;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+
+            &::placeholder {
+                color: @mobile-text-secondary;
+            }
+
+            &:focus {
+                background: rgba(255, 255, 255, 0.15);
+                border-color: @mobile-accent-color;
+            }
+        }
+
+        .error-message {
+            color: #ff4d4f;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-left: 5px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: @mobile-accent-color;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+
+            &:active {
+                transform: scale(0.98);
+            }
+
+            &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+        }
+
+        .switch-mode {
+            margin-top: 20px;
+            color: @mobile-text-secondary;
+            font-size: 14px;
+
+            span {
+                color: @mobile-accent-color;
+                font-weight: 600;
+                margin-left: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+}

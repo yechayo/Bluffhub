@@ -1,0 +1,67 @@
+/* Appú@7 */
+#root {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ï1¹h7 */
+.app-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* h@Ín7 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+/* {Uub¹h */
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 8'…¹h */
+.gamebar-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* KÕub¹h */
+.test-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Í”¾¡ */
+@media (max-width: 768px) {
+  .app-container {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    font-size: 12px;
+  }
+}

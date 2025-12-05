@@ -1,0 +1,92 @@
+.challenge-reveal-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.challenge-reveal-overlay:not(:empty) {
+  opacity: 1;
+}
+
+.reveal-panel {
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 24px 32px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transform: scale(0.9);
+  animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes pop-in {
+  to { transform: scale(1); }
+}
+
+.reveal-header {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 1px;
+}
+
+.card-reveal {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.reveal-card {
+  width: 70px;
+  height: 100px;
+  border-radius: 8px;
+  background: linear-gradient(150deg, #fefefe, #e6e6e6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  transform: rotateY(90deg);
+  transition: transform 0.5s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.reveal-card.flip {
+  animation: flip-card 0.6s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+.reveal-card.red {
+  color: #c62828;
+}
+
+.reveal-card.black {
+  color: #1a1a1a;
+}
+
+.reveal-card .rank {
+  font-size: 26px;
+}
+
+.reveal-card .suit {
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+@keyframes flip-card {
+  from { transform: rotateY(90deg); }
+  to { transform: rotateY(0deg); }
+}

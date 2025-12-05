@@ -1,0 +1,90 @@
+.normal-button {
+  /* 基础样式 - 基于 login.less 中的按钮样式 */
+  background-color: #862a00;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', Courier, monospace;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* 变体样式 */
+.normal-button--primary {
+  background-color: #862a00;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.normal-button--secondary {
+  background-color: #666;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.normal-button--outline {
+  background-color: transparent;
+  border-color: #862a00;
+  color: #862a00;
+}
+
+/* 尺寸样式 */
+.normal-button--small {
+  font-size: 10px;
+  padding: 6px 20px;
+}
+
+.normal-button--medium {
+  font-size: 12px;
+  padding: 10px 45px;
+}
+
+.normal-button--large {
+  font-size: 14px;
+  padding: 14px 60px;
+}
+
+/* 状态样式 */
+.normal-button--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 交互效果 */
+.normal-button:hover:not(.normal-button--disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(134, 42, 0, 0.3);
+}
+
+.normal-button:active:not(.normal-button--disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(134, 42, 0, 0.2);
+}
+
+.normal-button--primary:hover:not(.normal-button--disabled) {
+  background-color: #a03500;
+}
+
+.normal-button--secondary:hover:not(.normal-button--disabled) {
+  background-color: #777;
+}
+
+.normal-button--outline:hover:not(.normal-button--disabled) {
+  background-color: #862a00;
+  color: #fff;
+}
+
+/* 焦点样式 */
+.normal-button:focus {
+  outline: 2px solid #862a00;
+  outline-offset: 2px;
+}

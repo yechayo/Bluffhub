@@ -1,0 +1,41 @@
+.mac-message {
+  .ant-message-notice-content {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    
+    .anticon {
+      font-size: 18px;
+      margin-right: 10px;
+      position: relative;
+      top: 1px;
+      
+      &.anticon-success {
+        color: #34c759;
+      }
+      &.anticon-error {
+        color: #ff3b30;
+      }
+      &.anticon-warning {
+        color: #ffcc00;
+      }
+      &.anticon-info {
+        color: #007aff;
+      }
+    }
+  }
+}
+
+// 适配暗黑模式（如果应用有 .dark 类在 body 或根元素上）
+:global(.dark) .mac-message .ant-message-notice-content {
+  background: rgba(30, 30, 30, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5f5f7;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
